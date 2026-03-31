@@ -12,8 +12,15 @@ for(let i=0;i<maxRows*5;i++){
   grid.appendChild(div);
 }
 
+document.addEventListener ("keydown", (e) => {
+    if (e.key === 'Enter') {
+      submitGuess();
+      //console.log("Enter pressed");
+    }
+  });
+
 // load words from file
-fetch('js/words.txt')
+fetch('js/words-EN.txt')
   .then(response => response.text())
   .then(text => {
     words = text.split('\n').map(line =>
@@ -26,7 +33,7 @@ fetch('js/words.txt')
     // pick secret word
     secret = words[Math.floor(Math.random() * words.length)];
 
-    console.log("Secret word:", secret); // debug
+    console.log("Secret word:", secret);
   });
 
 function submitGuess(){
@@ -63,4 +70,21 @@ function submitGuess(){
   if(currentRow === maxRows && guess !== secret){
     setTimeout(()=>alert("You lost! Word was: " + secret),200);
   }
+
+  document.addEventListener ("keyup", (e) => {
+    if (GameOver) return;
+    if (e.key === 'Enter') {
+      //submitGuess();
+      console.log("Enter pressed");
+    }
+    if ("keyA" <= e.code && e.code <= "keyZ" && col < width) {
+      let currtile = document.getElementById(row.toString() + "-" + col.toString());
+      if (currtile.innerText == "") {
+        currtile.innerText = e.code[3];
+        col += 1;
+      }
+    }
+  });
+  
 }
+
