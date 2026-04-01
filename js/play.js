@@ -73,13 +73,31 @@ function submitGuess(){
     return;
   }
 
+let secretArr = secret.split('');
+let guessArr = guess.split('');
+
+
   for(let i=0;i<5;i++){
     const cell = grid.children[currentRow*5 + i];
-
-    if(guess[i] === secret[i]){
+    
+    // green
+    if(guessArr[i] === secretArr[i]){
       cell.classList.add('green');
-    } else if(secret.includes(guess[i])){
+      secretArr[i] = null;
+      guessArr[i] = null;
+    }
+  }
+
+  // yellow and red
+  for(let i=0;i<5;i++){
+    const cell = grid.children[currentRow*5 + i];
+    
+    if(guessArr[i] === null) continue;
+
+    let index = secretArr.indexOf(guessArr[i]);
+    if(index !== -1){
       cell.classList.add('yellow');
+      secretArr[index] = null;
     } else {
       cell.classList.add('red');
     }
