@@ -4,6 +4,8 @@ let currentRow = 0;
 let col = 0;
 let gameover = false;
 let guess = "";
+let startTime = Date.now();
+let timerInterval;
 const maxRows = 6;
 
 const grid = document.getElementById('grid');
@@ -103,10 +105,18 @@ let guessArr = guess.split('');
     }
   }
 
-  if(guess === secret){
-    setTimeout(()=>alert("You win!"),200);
-    gameover = true;
-  }
+  if (guess === secret) {
+  gameover = true;
+
+  clearInterval(timerInterval);
+
+  document.getElementById("FinalTime").textContent = 
+    document.getElementById("timer").textContent;
+
+  setTimeout(() => {
+    document.getElementById("victoryScreen").classList.remove("hidden");
+  }, 200);
+}
 
   currentRow++;
   col = 0;
@@ -118,3 +128,43 @@ let guessArr = guess.split('');
   }
 }
 
+document.getElementById("playAgainBtn").addEventListener("click", () => {
+  clearInterval(timerInterval);
+  startTimer();
+
+  // hide victory screen
+  document.getElementById("victoryScreen").classList.add("hidden");
+
+  // reset variables
+  currentRow = 0;
+  col = 0;
+  guess = "";
+  gameover = false;
+
+  // clear grid
+  for (let i = 0; i < grid.children.length; i++) {
+    grid.children[i].textContent = "";
+    grid.children[i].classList.remove("green", "yellow", "red");
+  }
+
+  // pick new word
+  secret = words[Math.floor(Math.random() * words.length)];
+
+  console.log("New secret:", secret);
+});
+
+function startTimer() {
+  startTime = Date.now();
+
+  timerInterval = setInterval(() => {
+    let now = Date.now();
+    let diff = Math.floor((now - startTime) / 1000);
+
+    let minutes = Math.floor(diff / 60);
+    let seconds = diff % 60;
+
+    document.getElementById("timer").textContent =
+      `${minutes}:${seconds.toString().padStart(2, '0')}`;
+  }, 1000);
+}
+startTimer();
