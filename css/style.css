@@ -203,4 +203,49 @@ p{
   margin-bottom: 20px;
 }
 
+/* victory screen */
 
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #222;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 20px;
+  z-index: 10;
+}
+
+.hidden {
+  display: none;
+}
+
+#victoryScreen h2 {
+  color: white;
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+#playAgainBtn {
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  background-color: #fff8f8;
+}
+
+#playAgainLoseBtn {
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  background-color: #fff8f8;
+} 

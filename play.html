@@ -14,9 +14,29 @@
   <div class="game-container">
     <h1>LESSGO</h1>
     <div id="grid" class="grid"></div>
+      <div id="timer">0:00</div>
+    <div id="victoryScreen" class="overlay hidden">
+  <h2>congratulations bro!</h2>
+  <p>finally about damn time</p>
+  <br>
+  <br>
+  
+  <P>Your time: <span id="FinalTime"></span></P>
 
-    <input type="text" id="guessInput" maxlength="5" placeholder="Enter 5-letter word" />
-    
+  <button id="playAgainBtn">Play Again</button>
+  </div>
+
+    <div id="loseScreen" class="overlay hidden">
+  <h2>Terrible LOL</h2>
+  <p>The word was: <span id="lostWord">! Dumbahh</span></p>
+  <br>
+  <br>
+
+  <p>your time: <span id="FinalTimeLose"></span></p>
+
+
+  <button id="playAgainLoseBtn">Try Again</button>
+  </div>
   </div>
 
   <!-- Game logic script -->
