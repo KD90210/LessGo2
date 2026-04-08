@@ -123,9 +123,21 @@ let guessArr = guess.split('');
   guess = "";
 
   if(currentRow === maxRows && !gameover){
-    setTimeout(()=>alert("You lost! Word was: " + secret),200);
-    gameover = true;
-  }
+  gameover = true;
+
+  clearInterval(timerInterval);
+
+  // show the correct word
+  document.getElementById("lostWord").textContent = secret;
+
+  document.getElementById("FinalTimeLose").textContent = 
+    document.getElementById("timer").textContent;
+
+
+  setTimeout(() => {
+    document.getElementById("loseScreen").classList.remove("hidden");
+  }, 200);
+}
 }
 
 document.getElementById("playAgainBtn").addEventListener("click", () => {
@@ -152,6 +164,27 @@ document.getElementById("playAgainBtn").addEventListener("click", () => {
 
   console.log("New secret:", secret);
 });
+
+// PLAY AGAIN (LOSE)
+document.getElementById("playAgainLoseBtn").addEventListener("click", () => {
+  clearInterval(timerInterval);
+  startTimer();
+
+  document.getElementById("loseScreen").classList.add("hidden");
+
+  currentRow = 0;
+  col = 0;
+  guess = "";
+  gameover = false;
+
+  for (let i = 0; i < grid.children.length; i++) {
+    grid.children[i].textContent = "";
+    grid.children[i].classList.remove("green", "yellow", "red");
+  }
+
+  secret = words[Math.floor(Math.random() * words.length)];
+});
+
 
 function startTimer() {
   startTime = Date.now();
