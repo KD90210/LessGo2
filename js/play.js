@@ -1,3 +1,5 @@
+import { getCurrentLanguage } from "./language.js";
+
 let words = [];
 let secret = "";
 let currentRow = 0;
@@ -7,6 +9,7 @@ let guess = "";
 let startTime = Date.now();
 let timerInterval;
 const maxRows = 6;
+let current_lang = getCurrentLanguage();
 
 const grid = document.getElementById('grid');
 
@@ -17,8 +20,9 @@ for(let i=0;i<maxRows*5;i++){
   grid.appendChild(div);
 }
 
+console.log(`Loading words from js/words-${current_lang}.txt ...`);
 // load words from file
-fetch('js/words-EN.txt')
+fetch('js/words-en.txt')
   .then(response => response.text())
   .then(text => {
     words = text.split('\n').map(line =>
